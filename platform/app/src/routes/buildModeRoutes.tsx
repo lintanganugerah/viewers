@@ -40,7 +40,16 @@ export default function buildModeRoutes({
   });
 
   modes.forEach(mode => {
+    // Public build: expose only the main viewer UI.
+    // Other mode routes such as /basic, /dev, /tmtv, /microscopy, etc. are intentionally disabled.
+    if (mode.routeName !== 'viewer') {
+      return;
+    }
+
     // todo: for each route. add route to path.
+    /*
+    // Disabled: data-source specific viewer routes like /viewer/dicomweb.
+    // We only want /viewer?StudyInstanceUIDs=... to be accessible.
     dataSourceNames.forEach(dataSourceName => {
       const path = `${mode.routeName}/${dataSourceName}`;
 
@@ -62,6 +71,7 @@ export default function buildModeRoutes({
         private: true,
       });
     });
+    */
 
     // Add active DataSource route.
     // This is the DataSource route for the active data source defined in ExtensionManager.getActiveDataSource

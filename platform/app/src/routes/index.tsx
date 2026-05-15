@@ -67,6 +67,8 @@ NotFoundStudy.propTypes = {
 
 // TODO: Include "routes" debug route if dev build
 const bakedInRoutes = [
+  /*
+  // Public build: disable non-viewer utility pages from UI access.
   {
     path: `/notfoundserver`,
     children: NotFoundServer,
@@ -87,6 +89,7 @@ const bakedInRoutes = [
     path: `/localbasic`,
     children: Local.bind(null, { modePath: 'viewer/dicomlocal' }),
   },
+  */
 ];
 
 // NOT FOUND (404)
@@ -131,8 +134,12 @@ const createRoutes = ({
 
   const allRoutes = [
     ...routes,
+    /*
+    // Public build: disable worklist and custom pages.
+    // Only /viewer?StudyInstanceUIDs=... should be reachable.
     ...(showStudyList ? [WorkListRoute] : []),
     ...(customRoutes?.routes || []),
+    */
     ...bakedInRoutes,
     customRoutes?.notFoundRoute || notFoundRoute,
   ];

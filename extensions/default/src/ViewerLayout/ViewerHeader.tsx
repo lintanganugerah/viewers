@@ -16,6 +16,8 @@ function ViewerHeader({ appConfig }: withAppTypes<{ appConfig: AppTypes.Config }
 
   const navigate = useNavigate();
   const location = useLocation();
+  const isDirectViewerStudyUrl =
+    location.pathname.includes('/viewer') && new URLSearchParams(location.search).has('StudyInstanceUIDs');
 
   const onClickReturnButton = () => {
     const { pathname } = location;
@@ -84,7 +86,7 @@ function ViewerHeader({ appConfig }: withAppTypes<{ appConfig: AppTypes.Config }
   return (
     <Header
       menuOptions={menuOptions}
-      isReturnEnabled={!!appConfig.showStudyList}
+      isReturnEnabled={!!appConfig.showStudyList && !isDirectViewerStudyUrl}
       onClickReturnButton={onClickReturnButton}
       WhiteLabeling={appConfig.whiteLabeling}
       Secondary={<Toolbar buttonSection="secondary" />}
